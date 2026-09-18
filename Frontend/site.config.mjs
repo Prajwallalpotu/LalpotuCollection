@@ -1,10 +1,11 @@
 // The single source for business details. Rebuild after editing this file.
 export const site = {
   name: 'Lalpotu Collection',
-  // Set only after the real HTTPS production domain is confirmed.
-  url: '',
+  url: 'https://lalpotu.com',
+  seoTitle: 'Lalpotu Collection | साड्या आणि पारंपरिक वस्त्रसंग्रह · नांदेड',
+  description: 'Lalpotu Collection, Nanded: पैठणी, सिल्क, कांजीवरम, महेश्वरी आणि डिझायनर साड्यांचा निवडक वस्त्रसंग्रह. तुमच्या खास क्षणासाठी दुकानात भेट द्या किंवा WhatsApp वर संपर्क करा.',
   phone: '+919579663459',
-  phoneDisplay: '+91 91461 46699',
+  phoneDisplay: '+91 9579663459',
   email: 'lalpotunx@gmail.com',
   instagram: 'https://www.instagram.com/lalpotucollection_nanded/',
   maps: 'https://maps.app.goo.gl/vFUSCapiayruCtEE8?g_st=iw',
@@ -34,9 +35,9 @@ export const categories = [
   { name: 'Semi Silk Paithani Sarees', group: 'Festive & designer' },
   { name: 'Fancy Cotton Sarees', group: 'Everyday & gifting' },
   { name: 'Fancy Designer Lehenga', group: 'Festive & designer' },
-  { name: 'Suiting & Shirting', group: 'Ethnic & occasion wear' },
-  { name: 'Navari Saree', group: 'Ethnic & occasion wear' },
-  { name: 'Dhoti', group: 'Ethnic & occasion wear' },
+  { name: 'Suiting & Shirting', group: 'Traditional & occasion wear' },
+  { name: 'Navari Saree', group: 'Traditional & occasion wear' },
+  { name: 'Dhoti', group: 'Traditional & occasion wear' },
   { name: 'Gifting Sarees', group: 'Everyday & gifting' },
 ];
 

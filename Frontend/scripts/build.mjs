@@ -34,17 +34,17 @@ if (configuredUrl) {
 const absolute = (resource) => new URL(resource, base).href;
 const schema = {
   '@context': 'https://schema.org', '@type': 'ClothingStore', name: site.name,
-  telephone: site.phone, address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, addressRegion: site.region, postalCode: site.postcode, addressCountry: 'IN' },
+  description: site.description, telephone: site.phone, email: site.email, priceRange: '₹₹', address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, addressRegion: site.region, postalCode: site.postcode, addressCountry: 'IN' },
   geo: { '@type': 'GeoCoordinates', latitude: site.latitude, longitude: site.longitude },
   openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: site.hours.opens, closes: site.hours.closes }],
-  sameAs: [site.instagram], hasMap: site.maps,
+  sameAs: [site.instagram], hasMap: site.maps, areaServed: { '@type': 'City', name: site.city },
   ...(base ? { url: base, image: absolute('public/assets/social-share.jpg'), logo: absolute('public/assets/logo.webp') } : {}),
 };
 const replacements = {
   ...Object.fromEntries(Object.entries(site).filter(([, v]) => typeof v !== 'object').map(([k, v]) => [k, escape(v)])),
   ...Object.fromEntries(Object.entries(icons).map(([key, value]) => [`icon.${key}`, value])),
   whatsapp: escape(whatsapp()), hoursLabel: escape(site.hours.label), year: new Date().getFullYear(),
-  productionMeta: base ? `<link rel="canonical" href="${escape(base)}" />\n    <meta property="og:url" content="${escape(base)}" />\n    <meta property="og:image" content="${escape(absolute('public/assets/social-share.jpg'))}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="og:image:alt" content="Lalpotu Collection — sarees and ethnic wear, Nanded" />\n    <meta name="twitter:image" content="${escape(absolute('public/assets/social-share.jpg'))}" />` : '<!-- Canonical and absolute sharing URLs are added when SITE_URL is configured. -->',
+  productionMeta: base ? `<link rel="canonical" href="${escape(base)}" />\n    <meta property="og:url" content="${escape(base)}" />\n    <meta property="og:image" content="${escape(absolute('public/assets/social-share.jpg'))}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta property="og:image:alt" content="Lalpotu Collection — sarees and traditional textile collection, Nanded" />\n    <meta name="twitter:image" content="${escape(absolute('public/assets/social-share.jpg'))}" />` : '<!-- Canonical and absolute sharing URLs are added when SITE_URL is configured. -->',
   structuredData: JSON.stringify(schema).replace(/</g, '\\u003c'),
   featuredCards: categories.slice(0, 4).map((c, i) => categoryCard(c, i, true)).join('\n'),
   categoryCards: categories.slice(4).map((c, i) => categoryCard(c, i + 4, false)).join('\n'),
