@@ -3,7 +3,7 @@ export const site = {
   name: 'Lalpotu Collection',
   // Set only after the real HTTPS production domain is confirmed.
   url: '',
-  phone: '+919146146699',
+  phone: '+919579663459',
   phoneDisplay: '+91 91461 46699',
   email: 'lalpotunx@gmail.com',
   instagram: 'https://www.instagram.com/lalpotucollection_nanded/',
@@ -54,6 +54,6 @@ export const reviews = [
   { author: 'Maroti', rating: 5, quote: 'Very good.', age: '2 years ago at verification' },
 ];
 
-export function whatsapp(message = 'Hello Lalpotu Collection, I would like to explore your collection.') {
+export function whatsapp(message = 'Hello, Lalpotu Collection. I would like to explore your collection.') {
   return `https://wa.me/${site.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
 }
