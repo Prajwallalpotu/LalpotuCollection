@@ -5,6 +5,7 @@ export const site = {
   url: '',
   phone: '+919146146699',
   phoneDisplay: '+91 91461 46699',
+  email: 'lalpotunx@gmail.com',
   instagram: 'https://www.instagram.com/lalpotucollection_nanded/',
   maps: 'https://maps.app.goo.gl/vFUSCapiayruCtEE8?g_st=iw',
   mapEmbed: 'https://www.google.com/maps?q=Lalpotu%20collection%2C%20Old%20Monda%2C%20Mahatma%20Gandhi%20Road%2C%20Nanded%2C%20Maharashtra%20431604&z=16&output=embed',

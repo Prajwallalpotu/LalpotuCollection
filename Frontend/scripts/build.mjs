@@ -8,7 +8,7 @@ const escape = (value) => String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp
 const arrow = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const icons = {
   arrow,
-  whatsapp: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.7 7.4L3 20.5l1.5-4.7a8.5 8.5 0 1 1 16-4.2Z"/><path d="m8 7 2 3-1.2 1.2a9 9 0 0 0 4 4L14 14l3 2c-.8 2.4-3.4 1.4-5.5.2a12 12 0 0 1-4.7-4.7C5.6 9.4 5.6 7.6 8 7Z"/></svg>',
+  whatsapp: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.1 3.9A10 10 0 0 0 3.9 20.1L2 22l1.9-1.9A10 10 0 1 0 20.1 3.9Z"/><path d="M8.1 7.3c.3-.3.7-.3 1-.1l1.5 1.1c.3.2.4.6.2.9l-.7 1.1a8.2 8.2 0 0 0 3.6 3.6l1.1-.7c.3-.2.7-.1.9.2l1.1 1.5c.2.3.2.7-.1 1-1 1-2.4 1.1-3.7.5a10.8 10.8 0 0 1-5.7-5.7c-.6-1.3-.5-2.7.5-3.7Z"/></svg>',
   pin: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   phone: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 4 5-2 3a16 16 0 0 0 5 5l3-2 5 4c-1 5-6 3-10 0S1 8 3 4Z"/></svg>',
   play: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z" fill="currentColor" stroke="none"/></svg>',
@@ -64,6 +64,7 @@ for (const name of ['index.html', 'styles.css', 'script.js']) await cp(path.join
 // Source PDFs and extraction intermediates are never shipped.
 const usedAssets = [...new Set([...html.matchAll(/public\/assets\/([\w.-]+)/g)].map((m) => m[1]))];
 usedAssets.push('social-share.jpg');
+usedAssets.push('Backgroug-Image.tiff');
 for (const name of new Set(usedAssets)) await cp(path.join(root, 'public/assets', name), path.join(out, 'public/assets', name));
 await writeFile(path.join(out, 'robots.txt'), base ? `User-agent: *\nAllow: /\nSitemap: ${absolute('sitemap.xml')}\n` : 'User-agent: *\nDisallow: /\n');
 await writeFile(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${base ? `<url><loc>${escape(base)}</loc></url>` : ''}</urlset>\n`);
