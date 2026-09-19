@@ -58,16 +58,25 @@ const html = template.replace(/\{\{([\w.]+)\}\}/g, (_, key) => {
   return replacements[key];
 });
 await writeFile(path.join(root, 'index.html'), html);
+const policyTemplate = await readFile(path.join(root, 'privacy-policy.template.html'), 'utf8');
+const policyValues = { ...replacements, policyCanonical: base ? `<link rel="canonical" href="${escape(absolute('privacy-policy/'))}" />` : '' };
+const policyHtml = policyTemplate.replace(/\{\{([\w.]+)\}\}/g, (_, key) => {
+  if (!(key in policyValues)) throw new Error(`Missing policy template value: ${key}`);
+  return policyValues[key];
+});
+await mkdir(path.join(root, 'privacy-policy'), { recursive: true });
+await writeFile(path.join(root, 'privacy-policy/index.html'), policyHtml);
 const out = process.env.BUILD_DIR ? path.resolve(root, process.env.BUILD_DIR) : path.join(root, 'dist');
 await mkdir(path.join(out, 'public/assets'), { recursive: true });
 for (const name of ['index.html', 'styles.css', 'script.js']) await cp(path.join(root, name), path.join(out, name));
+await cp(path.join(root, 'privacy-policy'), path.join(out, 'privacy-policy'), { recursive: true });
 // Source PDFs and extraction intermediates are never shipped.
 const usedAssets = [...new Set([...html.matchAll(/public\/assets\/([\w.-]+)/g)].map((m) => m[1]))];
 usedAssets.push('social-share.jpg');
 usedAssets.push('Backgroug-Image.tiff');
 for (const name of new Set(usedAssets)) await cp(path.join(root, 'public/assets', name), path.join(out, 'public/assets', name));
 await writeFile(path.join(out, 'robots.txt'), base ? `User-agent: *\nAllow: /\nSitemap: ${absolute('sitemap.xml')}\n` : 'User-agent: *\nDisallow: /\n');
-await writeFile(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${base ? `<url><loc>${escape(base)}</loc></url>` : ''}</urlset>\n`);
+await writeFile(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${base ? `<url><loc>${escape(base)}</loc></url><url><loc>${escape(absolute('privacy-policy/'))}</loc></url>` : ''}</urlset>\n`);
 await writeFile(path.join(out, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n');
 console.log(`Built ${categories.length} collections, ${posts.length} real posts and ${reviews.length} verified review quotes.`);
 console.log(base ? `Production URL: ${base}` : 'Preview build: set SITE_URL to the confirmed domain before publishing.');
